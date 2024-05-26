@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 展示原材料费用表，用jinja渲染flask-alchemy的db类 -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-highlight">
+        <thead>
+            <th>Material Name</th>
+            <th>Material Specification</th>
+            <th>Unit Price Per G</th>
+            <th>Net Weight</th>
+            <th>Gross Weight</th>
+            <th>Net+Gross</th>
+            <th>Product Qualification Rate</th>
+            <th>TTL(CNY)</th>
+        </thead>
+        <tbody>
+            {% for material in materials %}
+            <tr>
+                <td>{{ material.material_name }}</td>
+                <td>{{ material.material_specification }}</td>
+                <td>{{ material.unit_price_per_g }}</td>
+                <td>{{ material.net_weight }}</td>
+                <td>{{ material.gross_weight }}</td>
+                <td>{{ material.net_weight+material.gross_weight  }}</td>
+                <td>{{ material.product_qualification_rate }}</td>
+                <td>
+                    {{ material.unit_price_per_g*(material.net_weight+material.gross_weight)/material.product_qualification_rate  }}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="7" style="text-align: right;"><strong></strong></td>
+                <td colspan="1"><strong>{{ total_ttl }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

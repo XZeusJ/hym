@@ -25,3 +25,16 @@ class Movie(db.Model):  # 表名将会是 movie
     id = db.Column(db.Integer, primary_key=True)  # 主键
     title = db.Column(db.String(60))  # 电影标题
     year = db.Column(db.String(4))  # 电影年份
+
+### 原材料费用表
+class RawMaterialCost(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    material_name = db.Column(db.String(100))  # 材料名称
+    material_specification = db.Column(db.String(100))  # 材料规格
+    unit_price_per_g = db.Column(db.Float)  # 单价/g
+    net_weight = db.Column(db.Float)  # 材料净重
+    gross_weight = db.Column(db.Float)  # 材料毛边
+    product_qualification_rate = db.Column(db.Float)  # 产品合格率
+    to_calculate = db.Column(db.Boolean, default=False)  # 判断是否拿到前台进行计算
+
+    

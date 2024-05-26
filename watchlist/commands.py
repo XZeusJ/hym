@@ -1,7 +1,7 @@
 import click
 
 from watchlist import app, db
-from watchlist.models import User, Movie
+from watchlist.models import User, Movie, RawMaterialCost
 
 ### 数据库初始化
 @app.cli.command()  # 注册为命令，可以传入 name 参数来自定义命令

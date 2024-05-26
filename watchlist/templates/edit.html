@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Edit item</h3>
-<form method="post">
-    Name <input type="text" name="title" autocomplete="off" required value="{{ movie.title }}">
-    Year <input type="text" name="year" autocomplete="off" required value="{{ movie.year }}">
-    <input class="btn" type="submit" name="submit" value="Update">
+{% if current_user.is_authenticated %}
+<!-- 添加原材料费用到表里 -->
+<h5>Update Raw Material</h5>
+<form class="form-horizontal" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-highlight">
+            <thead>
+                <th>Material Name</th>
+                <th>Material Specification</th>
+                <th>Unit Price Per G</th>
+                <th>Net Weight</th>
+                <th>Gross Weight</th>
+                <th>Product Qualification Rate</th>
+                <th>To Calculate</th>
+                <th>Submit</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ form.material_name(class="form-control") }}</td>
+                    <!-- form 是在你的视图 (view.py) 中传递到模板 (index.html) 的 RawMaterialCostForm 表单的实例。
+                        material_name 是这个表单实例中定义的一个字段，根据你的类定义，它是一个 StringField，意味着它会被渲染成一个文本输入框。 
+                        Jinja2 会调用 WTForms 的渲染方法-->
+                    <td>{{ form.material_specification(class="form-control") }}</td>
+                    <td>{{ form.unit_price_per_g(class="form-control") }}</td>
+                    <td>{{ form.net_weight(class="form-control") }}</td>
+                    <td>{{ form.gross_weight(class="form-control") }}</td>
+                    <td>{{ form.product_qualification_rate(class="form-control") }}</td>
+                    <td>{{ form.to_calculate(class="form-check-input", style="width: auto; margin-top: auto; margin-left: auto;") }}</td>
+                    <td>{{ form.submit(class="btn btn-primary") }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </form>
+{% endif %}
+
+
 {% endblock %}
